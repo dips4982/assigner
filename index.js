@@ -7,7 +7,13 @@ const db = require("./models");
 db.mongoose
     .connect(db.url, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        server: {
+            socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 }
+        },
+        replset: {
+            socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 },
+        }
     })
     .then(() => {
         console.log("Connected to the database!");
@@ -36,6 +42,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to my Todo list rest API." });
 });
+
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
