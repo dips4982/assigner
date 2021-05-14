@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to my Todo list rest API." });
+    res.json({ message: "Welcome to my Todo list rest API wohooo." });
 });
 
 
