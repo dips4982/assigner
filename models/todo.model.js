@@ -7,7 +7,11 @@ module.exports = mongoose => {
             subject: String,
             posted: Date,
             due: Date,
-            comments: String
+            comments: String,
+            marks: Number,
+            teacher: String,
+            code: Number
+
         }
     );
 
