@@ -3,13 +3,17 @@ const todo = db.todo;
 
 
 // const todoSchema = new Schema({
+//     {
 //     task: String,
 //     subject: String,
 //     posted: Date,
 //     due: Date,
-//     comments: String
-//     // dueDate : Date
-//     // ...
+//     comments: String,
+//     marks: Number,
+//     teacher: String,
+//     code: Number
+
+// }
 // })
 
 // Create and Save a new Task
@@ -28,7 +32,11 @@ exports.create = (req, res) => {
         // current date can be passed through frontend or initialised here
         posted: new Date(),  //initialise with the current date
         due: req.body.due,
-        comments: req.body.comments
+        comments: req.body.comments,
+        marks: req.body.marks,
+        teacher: req.body.teacher,
+        code: req.body.code
+
 
     });
 
@@ -50,7 +58,9 @@ exports.create = (req, res) => {
 // Retrieve all Tasks from the database.
 exports.findAll = (req, res) => {
 
-    todo.find()
+    const code = req.body.code;
+
+    todo.find({ code: code })
         .then(data => {
             res.send(data);
         })
@@ -66,8 +76,9 @@ exports.findAll = (req, res) => {
 exports.findBySubject = (req, res) => {
 
     const sub = req.body.subject;
+    const code = req.body.code;
 
-    todo.find({ subject: sub })
+    todo.find({ subject: sub, code: code })
         .then(data => {
             res.send(data);
         })
@@ -134,10 +145,11 @@ exports.delete = (req, res) => {
 exports.findBeforeDate = (req, res) => {
 
     const date = req.body.date;
+    const code = req.body.code;
 
     // {$and: [{  }]}
 
-    todo.find({ due: { $lt: date } })
+    todo.find({ due: { $lte: date }, code: code })
         .then(data => {
             res.send(data);
         })
