@@ -4,10 +4,10 @@ module.exports = app => {
     var router = require("express").Router();
 
     // Create a new Task
-    router.post("/", todo.create);
+    router.post("/create", todo.create);
 
     // Retrieve all the Tasks
-    router.post("/", todo.findAll);
+    router.post("/findall", todo.findAll);
 
     // find all tasks for a particular subject
     router.post("/sub", todo.findBySubject);
